@@ -154,13 +154,13 @@ def my_matchup_command(scoreboard, user_name):
 
 def loser_command(scoreboard):
     loser, score = get_winner_or_loser(scoreboard, 'loser')
-    response = "{owner} is currently the overall loser with {score} points - Sad!".format(owner=loser, score=score)
+    response = "{owner} is the overall loser with {score} points - Sad!".format(owner=loser, score=score)
     return response
 
 
 def winner_command(scoreboard):
     winner, score = get_winner_or_loser(scoreboard, 'winner')
-    response = "{owner} is currently the overall winner with {score} points - Swag!".format(owner=winner, score=score)
+    response = "{owner} is the overall winner with {score} points - Swag!".format(owner=winner, score=score)
     return response
 
 
