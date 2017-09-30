@@ -54,6 +54,9 @@ def get_winner_or_loser(scoreboard, function):
     owner = team.owner
     score = team_scores[team]
 
+    if owner == 'Charlotte Alimanestianu':
+        owner = 'Chalotte/Tiffany'
+
     return owner, score
 
 
