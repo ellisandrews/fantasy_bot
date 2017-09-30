@@ -2,6 +2,27 @@ fantasy_bot
 ===========
 ESPN Fantasy Football Slack Bot
 
+Setup
+---------------
+Intall the requirements
+```
+pip install -r requirements.txt
+```
+
+Set up the following environment variables:
+```
+export SLACK_API_TOKEN=<slack_api_token>
+export BOT_ID=<slackbot_id>
+export LEAGUE_ID=<espn_league_id>
+export ESPN_S2=<espn_s2> (from browser cookies, to access private league)
+export SWID=<espn_swid> (from browser cookies, to access private leauge)
+```
+
+Running the bot
+---------------
+```
+python fantasy_bot.py
+```
 
 Note:
 -----
