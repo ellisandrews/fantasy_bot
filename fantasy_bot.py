@@ -1,7 +1,7 @@
 import os
 import time
 
-from espn_fantasy import get_teams, get_scoreboard, get_user_matchup, get_loser, output_scoreboard
+from espn_fantasy import get_teams, get_scoreboard, get_user_matchup, get_winner_or_loser, output_scoreboard
 from slackclient import SlackClient
 
 
@@ -11,7 +11,7 @@ SLACK_API_TOKEN = os.environ.get("SLACK_API_TOKEN")
 
 # Slack @fantasy_bot constants
 AT_BOT = "<@" + BOT_ID + ">"
-EXAMPLE_COMMANDS = ["my matchup", "loser", "scoreboard"]
+EXAMPLE_COMMANDS = ["my matchup", "loser", "winner", "scoreboard"]
 VALID_USERS = ["ellis", "asmist", "vishal", "grant", "eunji", "charlotte", "mike", "adam", "liz", "dsmith", "ksawyer",
                "tom", "hmoeller", "ptracy", "libby", "keshav", "tiffany"]
 
@@ -21,7 +21,7 @@ MAP_USERS = {
     "vishal": "vishal",
     "grant": "grant",
     "eunji": "eunji",
-    "charlotte": "C.",
+    "charlotte": "charlotte",
     "mike": "M",
     "adam": "adam",
     "liz": "liz",
@@ -32,7 +32,7 @@ MAP_USERS = {
     "ptracy": "peter",
     "libby": "libby",
     "keshav": "keshav",
-    "tiffany": "C."
+    "tiffany": "charlotte"
 }
 
 # Instantiate Slack client
@@ -153,8 +153,14 @@ def my_matchup_command(scoreboard, user_name):
 
 
 def loser_command(scoreboard):
-    loser, score = get_loser(scoreboard)
+    loser, score = get_winner_or_loser(scoreboard, 'loser')
     response = "{owner} is currently the overall loser with {score} points - Sad!".format(owner=loser, score=score)
+    return response
+
+
+def winner_command(scoreboard):
+    winner, score = get_winner_or_loser(scoreboard, 'winner')
+    response = "{owner} is currently the overall winner with {score} points - Swag!".format(owner=winner, score=score)
     return response
 
 
@@ -240,11 +246,14 @@ def main():
                 elif "loser" in message:
                     response = loser_command(scoreboard)
 
+                elif "winner" in message:
+                    response = winner_command(scoreboard)
+
                 elif "scoreboard" in message:
                      response = scoreboard_command(scoreboard)
 
                 else:
-                    response = "Seems like Ellis messed up. Hit him up to fix this!"
+                    response = "Congrats on breaking the bot, you dog!"
 
                 # Respond to the user based on what their command was
                 respond_to_user(bot_output, response)

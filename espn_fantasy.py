@@ -32,11 +32,13 @@ def get_user_matchup(scoreboard, user_team):
             return 'away_team', matchup
 
 
-def get_loser(scoreboard):
+def get_winner_or_loser(scoreboard, function):
     """
     Takes a scoreboard object and returns the person with the lowest score this week and their score.
     NOTE: If multiple people are tied for lowest score, this currently only returns one of them.
     """
+    # assert function in ['winner', 'loser']
+
     board = [{matchup.home_team: matchup.home_score, matchup.away_team: matchup.away_score} for matchup in scoreboard]
 
     team_scores = {}
@@ -44,11 +46,15 @@ def get_loser(scoreboard):
         for team, score in matchup.iteritems():
             team_scores[team] = score
 
-    low_team = min(team_scores, key=team_scores.get)
-    low_owner = low_team.owner
-    low_score = team_scores[low_team]
+    if function == 'loser':
+        team = min(team_scores, key=team_scores.get)
+    else:
+        team = max(team_scores, key=team_scores.get)
 
-    return low_owner, low_score
+    owner = team.owner
+    score = team_scores[team]
+
+    return owner, score
 
 
 def output_scoreboard(scoreboard):
