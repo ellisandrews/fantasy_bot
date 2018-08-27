@@ -1,4 +1,4 @@
-fantasy_bot
+fantasy_bot V1
 ===========
 ESPN Fantasy Football Slack Bot
 
