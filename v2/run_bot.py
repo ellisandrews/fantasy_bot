@@ -5,23 +5,11 @@ from pprint import pprint
 
 from slackclient import SlackClient
 
-from espn_fantasy import get_league
+from espn import get_league
 from slack import AT_BOT, add_reaction, BOT_REACTIONS, is_valid_command, is_valid_user, parse_rtm_output
 
 
 SLACK_API_TOKEN = os.environ.get('SLACK_API_TOKEN')
-
-
-def get_league():
-    client = ESPNFF(ESPN_USERNAME, ESPN_PASSWORD)
-
-    try:
-        client.authorize()
-    except AuthorizationError:
-        print 'Failed to authorize.'
-
-    # Use the custom ESPNFF client to fetch the private league (handles 'swid' and 's2' for you)
-    return client.get_league(LEAGUE_ID, LEAGUE_YEAR)
 
 
 def listen():
