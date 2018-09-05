@@ -97,8 +97,8 @@ def get_week(message):
     """
     if 'week' in message and 'this week' not in message:
 
-        # Get the word/number directly following the word 'week' as a string, stripped of bad characters
-        possible_int_as_str = message.split('week')[1].split()[0].strip().strip('?').strip('!').lower()
+        # Get the word/number directly following the word 'week' as a string
+        possible_int_as_str = message.split('week')[1].split()[0].strip().lower()
 
         # First check if there is a week number integer in the string
         week_number = None
@@ -148,8 +148,12 @@ def check_specific_user(message, inquiring_user, keyword):
 
     # See if the word immediately preceding the keyword is one of the users.
     # If not, return the name of the inquiring user
-    potential_user = words[keyword_index - 1].split("'")[0].title()
+    potential_user = words[keyword_index - 1].title()
+
+    # We've stripped out apostrophes, so `Tiffanys` needs to evaluate to `Tiffany`
     if potential_user in USERS:
         return potential_user
+    elif potential_user.rstrip('s') in USERS:
+        return potential_user.rstrip('s')
     else:
         return inquiring_user

@@ -1,5 +1,6 @@
 import random
 import time
+from string import punctuation
 
 from slackclient import SlackClient
 
@@ -63,8 +64,9 @@ def listen():
         if not sl.validate_user(sc, bot_output, user_first_name):
             return
 
-        # Grab the message string directed at '@fantasy_bot', removing the @ mention
+        # Grab the message string directed at '@fantasy_bot', removing the @ mention and unnecessary characters
         message = bot_output['text'].replace(sl.AT_BOT, '').strip().lower()
+        message = ''.join(ch for ch in message if ch not in set(punctuation))
 
         # Make sure the user messaged the bot with a valid command
         if not sl.validate_command(sc, bot_output, user_first_name, message):
