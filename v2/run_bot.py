@@ -33,7 +33,7 @@ def handle_command(command, user, week):
         response = scoreboard_command(league, week)
 
     else:
-        response = "Congrats on finding a hole in You're Boi's logic :awkward_seal: You dog!"
+        response = "Congrats on finding a hole in You're Boi's logic :awkwardseal: You dog!"
 
     return response
 

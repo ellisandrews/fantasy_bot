@@ -20,7 +20,7 @@ USERS = {
     'Kyle': 27,
     'Liz': 18,
     'Mike': 11,
-    'Nik': 25,
+    'Niklas': 25,
     'Peter': 5,
     'Regina': 28,
     'Sal': 26,
